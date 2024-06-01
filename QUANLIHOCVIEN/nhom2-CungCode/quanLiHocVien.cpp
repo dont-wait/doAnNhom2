@@ -16,7 +16,7 @@ void searchStudent(studentList sl) {
 	switch (choice)
 	{
 	case 1: 
-		char tenLop[30];
+		/*char tenLop[30];
 		printf("Nhap ten lop: ");
 		gets_s(tenLop);
 		roomNode* roomNodeExist =  findNodeExistTenLopForTrue(room, tenLop);	
@@ -25,6 +25,7 @@ void searchStudent(studentList sl) {
 			
 			return NULL;
 		};
+		*/
 		break;
 	case 2:
 		char hocVienCoMaHocVien[16];
