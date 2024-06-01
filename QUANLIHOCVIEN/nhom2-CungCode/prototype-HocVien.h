@@ -61,7 +61,6 @@ void input1Info(roomList room, student& x);
 void readListStudent(char fileName[], studentList& sl);
 void read1InfoOnFile(FILE* fi, student& x);
 //tim kiem
-void searchStudent(studentList sl);
-studentNode* searchStudentByMaHocVien(studentList sl, char nameClass[]);
-studentNode* searchStudentByYOB(studentList sl, int year);
+void searchStudent(studentList sl, roomList room);
+
 #endif _quanLiHocVien_h

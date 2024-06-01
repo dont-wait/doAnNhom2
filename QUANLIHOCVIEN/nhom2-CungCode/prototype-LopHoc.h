@@ -1,6 +1,5 @@
-#ifndef _quanLiLopHoc_h
+﻿#ifndef _quanLiLopHoc_h
 #define _quanLiLopHoc_h
-
 struct Date {
 	int year;
 	int month;
@@ -9,7 +8,7 @@ struct Date {
 struct classroom {
 	char maLop[11];
 	char tenLop[30];
-	char lichHoc[15];
+	int lichHoc; //dùng khoá 1: sáng, 2: Chiều, 3: Tối
 	long hocPhi;
 	Date startDay;
 	Date endDay;
@@ -32,4 +31,7 @@ void showRoomList(roomList sl);
 int isEmpty(roomList room);
 void showRoomNode(roomNode* p);
 void initRoomList(roomList &room);
+const char* keyLichHoc(classroom room);
+roomNode* findNodeExistTenLopForTrue(roomList room, char tenLop[]);	//hàm này trả về node room chứa mã lớp trùng với 
+//đầu vào là tên lớp -> tên lớp so sánh với room->value.tenLop tìm thấy rồi thì trả về room.maLop
 #endif _quanLiLopHoc_h

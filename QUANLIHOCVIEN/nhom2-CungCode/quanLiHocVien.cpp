@@ -2,28 +2,11 @@
 
 #include "prototype-HocVien.h"
 //tim kiem
-studentNode* searchStudentByMaHocVien(studentList sl, char nameClass[]){
-	studentNode* currNode = sl.headNode;
-	while (currNode != NULL) {
-		if (stricmp(currNode->value.maHocVien, nameClass) == 0)
-			return currNode;
-		currNode = currNode->next;
-	}
-	return NULL;
-}
-studentNode* searchStudentByYOB(studentList sl, int year){
-	studentNode* currNode = sl.headNode;
-	while (currNode != NULL) {
-		if (currNode->value.birthday.year == year)
-			return currNode;
-		currNode = currNode->next;
-	}
-	return NULL;
-}
 void searchStudent(studentList sl) {
 	fflush(stdin);
 	int choice;
 	studentNode* p;
+	roomList room;
 	printf("1.Tim hoc vien theo ten lop\n");
 	printf("2.Tim hoc vien theo ma hoc vien\n");
 	printf("3.Tim hoc vien theo nam sinh\n");
@@ -33,12 +16,32 @@ void searchStudent(studentList sl) {
 	switch (choice)
 	{
 	case 1: 
+		char tenLop[30];
+		printf("Nhap ten lop: ");
+		gets_s(tenLop);
+		roomNode* roomNodeExist =  findNodeExistTenLopForTrue(room, tenLop);	
+		auto searchByTenLop = [] (studentList sl, char nameRoom[]) -> studentNode*{
+			studentNode* currNode = sl.headNode;
+			
+			return NULL;
+		};
 		break;
 	case 2:
 		char hocVienCoMaHocVien[16];
 		printf("Nhap ma hoc vien: ");
 		gets_s(hocVienCoMaHocVien);
-		p = searchStudentByMaHocVien(sl, hocVienCoMaHocVien);
+		
+		auto searchByMaHocVien = [] (studentList sl, char nameClass[]) -> studentNode*{
+			studentNode* currNode = sl.headNode;
+			while (currNode != NULL) {
+				if (stricmp(currNode->value.maHocVien, nameClass) == 0)
+					return currNode;
+				currNode = currNode->next;
+			}
+			return NULL;
+		};
+		
+		p = searchByMaHocVien(sl, hocVienCoMaHocVien);
 		if (p == NULL)
 			printf("Khong ton tai hoc vien co ten lop %s\n", hocVienCoMaHocVien);
 		else {
@@ -50,7 +53,18 @@ void searchStudent(studentList sl) {
 		int year;
 		printf("Nhap nam sinh: ");
 		scanf("%d", &year);
-		p = searchStudentByYOB(sl, year);
+		
+		auto searchByYOB = [](studentList sl, int year) -> studentNode* {
+			studentNode* currNode = sl.headNode;
+			while (currNode != NULL) {
+				if (currNode->value.birthday.year == year)
+					return currNode;
+			currNode = currNode->next;
+			}
+			return NULL;
+		};
+		
+		p = searchByYOB(sl, year);
 		if (p == NULL)
 			printf("Khong ton tai hoc vien sinh nam %d\n", year);
 		else {

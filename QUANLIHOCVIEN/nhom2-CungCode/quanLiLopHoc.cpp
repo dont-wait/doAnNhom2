@@ -3,11 +3,21 @@
 
 
 //========================================================================
+//etc
+roomNode* findNodeExistTenLopForTrue(roomList room, char tenLop[]) {
+	roomNode* currNode = room.headNode;
+	while(currNode!=NULL) {
+		if(strcmpi(currNode->value.tenLop, tenLop))
+			return currNode;	//đã tìm thấy node chứa tên lớp
+		currNode = currNode->next;
+	}
+	return NULL;
+}
 //Xuất thông tin lop hoc
 void printInfoClass(classroom x) {
 	printf("|%-14s|%-21s|%15s| %10ld|%d/%02d/%02d| %d/%02d/%02d| %d/%02d/%02d|\n", x.maLop
 														   , x.tenLop
-														   , x.lichHoc
+														   , keyLichHoc(x)
 														   , x.hocPhi
 														   , x.startDay.year, x.startDay.month, x.startDay.day
 														   , x.endDay.year, x.endDay.month, x.endDay.day
@@ -17,7 +27,7 @@ void printInfoClass(classroom x) {
 }
 void showRoomList(roomList sl) {
 	if (isEmpty(sl)) {
-		printf("Linked studentList is Empty\n");
+		printf("Linked roomList is Empty\n");
 		return;
 	}
 	printf("Noi dung danh sach lien ket:\n");
@@ -56,7 +66,7 @@ void readListRoom(char fileRoom[], roomList &room) {
 	printf("Doc file %s thanh cong vui long nhan 2 de in\n", fileRoom);
 }
 void read1RoomOnFile(FILE* fi, classroom& x) {
-	fscanf(fi, "%[^|]|%[^|]|%[^|]|%ld |%d%d%d|%d%d%d|%d%d%d\n", &x.maLop
+	fscanf(fi, "%[^|]|%[^|]|%d|%ld |%d%d%d|%d%d%d|%d%d%d\n", &x.maLop
 		, &x.tenLop
 		, &x.lichHoc
 		, &x.hocPhi
@@ -103,4 +113,12 @@ void showRoomNode(roomNode* p) {
 //khởi tạo dslk
 void initRoomList(roomList &room) {
 	room.headNode = room.tailNode = NULL;
+}
+//kiểm tra KHoá lịch học
+const char* keyLichHoc(classroom room) {
+	if(room.lichHoc == 1)
+		return "Sang";
+	else if(room.lichHoc == 2)
+		return "Chieu";
+	return "Toi";
 }

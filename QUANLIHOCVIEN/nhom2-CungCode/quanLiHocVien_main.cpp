@@ -21,9 +21,8 @@ void process() {
 		switch (choice)
 		{
 		case 1:
-			readListStudent("hocvien.txt", sl);
-			readListRoom("lophoc.txt", room);
-			
+			readListStudent("hocVien.txt", sl);
+			readListRoom("lopHoc.txt", room);	
 			break;
 		case 2:
 			showSList(sl);
@@ -35,7 +34,7 @@ void process() {
 			insertTail(sl, p);
 			break;
 		case 4:
-			searchStudent(sl);
+			searchStudent(sl, room);
 			break;
 		default:
 			printf("Vui long nhap tu 0..9\n");
