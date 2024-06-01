@@ -6,7 +6,7 @@ void searchStudent(studentList sl) {
 	fflush(stdin);
 	int choice;
 	studentNode* p;
-	roomList room;
+	
 	printf("1.Tim hoc vien theo ten lop\n");
 	printf("2.Tim hoc vien theo ma hoc vien\n");
 	printf("3.Tim hoc vien theo nam sinh\n");
@@ -15,23 +15,35 @@ void searchStudent(studentList sl) {
 	fflush(stdin);
 	switch (choice)
 	{
-	case 1: 
-		/*char tenLop[30];
+	case 1:  {
+		char tenLop[30];
 		printf("Nhap ten lop: ");
 		gets_s(tenLop);
-		roomNode* roomNodeExist =  findNodeExistTenLopForTrue(room, tenLop);	
-		auto searchByTenLop = [] (studentList sl, char nameRoom[]) -> studentNode*{
+		//LAMBDA EXPRESSION
+		//TÌm kiếm theo Tên lớp
+		auto searchByTenLop = [] (studentList sl, const char* nameRoom) -> studentNode*{
 			studentNode* currNode = sl.headNode;
-			
+			while(currNode!=NULL) {
+				if(strcmpi(currNode->value.lopHoc.maLop, keyTenMon(nameRoom)) == 0)
+					return currNode;
+				currNode = currNode->next;
+			}
 			return NULL;
 		};
-		*/
+		p = searchByTenLop(sl, tenLop);
+		if (p == NULL)
+			printf("Khong ton tai hoc vien co ten lop: %s\n", tenLop);
+		else {
+			p = createSNode(p->value);
+			showSNode(p);
+		}
 		break;
-	case 2:
+	}
+	case 2: {
 		char hocVienCoMaHocVien[16];
 		printf("Nhap ma hoc vien: ");
 		gets_s(hocVienCoMaHocVien);
-		
+		//TÌm kiếm theo Mã học viên
 		auto searchByMaHocVien = [] (studentList sl, char nameClass[]) -> studentNode*{
 			studentNode* currNode = sl.headNode;
 			while (currNode != NULL) {
@@ -44,17 +56,18 @@ void searchStudent(studentList sl) {
 		
 		p = searchByMaHocVien(sl, hocVienCoMaHocVien);
 		if (p == NULL)
-			printf("Khong ton tai hoc vien co ten lop %s\n", hocVienCoMaHocVien);
+			printf("Khong ton tai hoc vien co ma: %s\n", hocVienCoMaHocVien);
 		else {
 			p = createSNode(p->value);
 			showSNode(p);
 		}
 		break;
-	case 3:
+	}
+	case 3: {
 		int year;
 		printf("Nhap nam sinh: ");
 		scanf("%d", &year);
-		
+		//TÌm kiếm theo Năm sinh
 		auto searchByYOB = [](studentList sl, int year) -> studentNode* {
 			studentNode* currNode = sl.headNode;
 			while (currNode != NULL) {
@@ -67,12 +80,13 @@ void searchStudent(studentList sl) {
 		
 		p = searchByYOB(sl, year);
 		if (p == NULL)
-			printf("Khong ton tai hoc vien sinh nam %d\n", year);
+			printf("Khong ton tai hoc vien sinh nam: %d\n", year);
 		else {
 			p = createSNode(p->value);
 			showSNode(p);
 		}
 		break;
+	}
 	default:
 		break;
 	}
@@ -105,42 +119,15 @@ void read1InfoOnFile(FILE* fi, student& x) {
 	fscanf(fi, "%[^|]|%[^|]|%[^|]|%d%d%d|%[^|]|%f\n", &x.maHocVien, &x.hoLot, &x.ten, &x.birthday.year, &x.birthday.month, &x.birthday.day, &x.lopHoc.maLop, &x.diem);
 }
 //==============================
-//Kiểm tra
-bool is_valid_date(Date date) {
-	// Kiểm tra xem day, month, year có phải là số nguyên
-	if (date.day < 1 || date.month < 1 || date.year < 1) 
-		return false;
-	// Kiểm tra xem year có phải là năm nhuận
-	bool is_leap_year = (date.year % 4 == 0 && (date.year % 100 != 0 || date.year % 400 == 0));
-
-	// Số ngày trong mỗi tháng
-	int days_in_month[] = { 31, 28 + is_leap_year, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	// Kiểm tra xem month có hợp lệ không
-	if (date.month < 1 || date.month > 12) {
-		return false;
-	}
-
-	// Kiểm tra xem day có hợp lệ không
-	if (date.day < 1 || date.day > days_in_month[date.month - 1]) {
-		return false;
-	}
-	return true;
-}
-bool isValidNumberclass(student newStudent, roomList room) {
-	roomNode* currNode = room.headNode;
-	while (currNode != NULL) {
-		if (stricmp(newStudent.lopHoc.maLop, currNode->value.maLop) == 0)
-			return true;
-		currNode = currNode->next;
-	}
-	return false;
-}
-
-void input1Info(roomList room, student& x) {
+void input1Info(roomList room, student& x, studentList list) {
 	fflush(stdin);
-	printf("Nhap ma hoc vien: ");
-	gets_s(x.maHocVien);
+	do {
+		printf("Nhap ma hoc vien: ");
+		gets_s(x.maHocVien);
+		if(!isValidMHV(x, list))
+			printf("Da ton tai Ma hoc vien nay!\n");
+	}while(!isValidMHV(x, list));
+	
 	fflush(stdin);
 	
 	printf("Nhap Ho lot : ");
@@ -163,9 +150,9 @@ void input1Info(roomList room, student& x) {
 		fflush(stdin);
 		printf("Nhap Ma lop: ");
 		gets_s(x.lopHoc.maLop);
-		if (isValidNumberclass(x, room) == false)
+		if (!isValidNumberclass(x, room)) //false
 			printf("Ma lop hoc khong ton tai! Vui long nhap lai\n");
-	} while (isValidNumberclass(x, room) != true);
+	} while (!isValidNumberclass(x, room)); //false
 	
 	fflush(stdin);
 	printf("Nhap Diem: ");
@@ -306,5 +293,46 @@ studentNode* createSNode(student x) {
 void initSList(studentList &sl) {
 	sl.headNode = sl.tailNode = NULL;
 }
+//PHỤ LỤC===================================================================
+//Kiểm tra
+bool is_valid_date(Date date) {
+	// Kiểm tra xem day, month, year có phải là số nguyên
+	if (date.day < 1 || date.month < 1 || date.year < 1) 
+		return false;
+	// Kiểm tra xem year có phải là năm nhuận
+	bool is_leap_year = (date.year % 4 == 0 && (date.year % 100 != 0 || date.year % 400 == 0));
 
+	// Số ngày trong mỗi tháng
+	int days_in_month[] = { 31, 28 + is_leap_year, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
+	// Kiểm tra xem month có hợp lệ không
+	if (date.month < 1 || date.month > 12) {
+		return false;
+	}
+
+	// Kiểm tra xem day có hợp lệ không
+	if (date.day < 1 || date.day > days_in_month[date.month - 1]) {
+		return false;
+	}
+	return true;
+}
+//Kiểm tra lớp học đó có mở, có tồn tại
+bool isValidNumberclass(student newStudent, roomList room) {
+	roomNode* currNode = room.headNode;
+	while (currNode != NULL) {
+		if (stricmp(newStudent.lopHoc.maLop, currNode->value.maLop) == 0)
+			return true;	//thấy rồi, mừng quá, môn này có mở lớp !
+		currNode = currNode->next;
+	}
+	return false; // Ko có lớp đó để học
+}
+//không được tồn tại học sinh trùng mã học viên
+bool isValidMHV(student newStudent, studentList list) {
+	studentNode* currNode = list.headNode;
+	while (currNode != NULL) {
+		if (stricmp(newStudent.maHocVien, currNode->value.maHocVien) == 0)
+			return false; //tìm thấy sinh viên trùng -> NHẬP LẠI
+		currNode = currNode->next;
+	}
+	return true;	//OKIE
+}

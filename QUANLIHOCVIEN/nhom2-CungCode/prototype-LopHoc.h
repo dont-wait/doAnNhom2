@@ -32,6 +32,6 @@ int isEmpty(roomList room);
 void showRoomNode(roomNode* p);
 void initRoomList(roomList &room);
 const char* keyLichHoc(classroom room);
-roomNode* findNodeExistTenLopForTrue(roomList room, char tenLop[]);	//hàm này trả về node room chứa mã lớp trùng với 
-//đầu vào là tên lớp -> tên lớp so sánh với room->value.tenLop tìm thấy rồi thì trả về room.maLop
+const char* keyTenMon(const char* nameRoom); //ép chó thành mèo
+const char* findLopHocChuaTenMonCanTim(roomList room);
 #endif _quanLiLopHoc_h

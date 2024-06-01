@@ -16,7 +16,7 @@ void process() {
 
 	do {
 		printMenu();
-		printf("Choose 1..3: ");
+		printf("Choose 0..9: ");
 		scanf("%d", &choice);
 		switch (choice)
 		{
@@ -29,12 +29,12 @@ void process() {
 			showRoomList(room);
 			break;
 		case 3:
-			input1Info(room, x);
+			input1Info(room, x, sl);
 			p = createSNode(x);
 			insertTail(sl, p);
 			break;
 		case 4:
-			searchStudent(sl, room);
+			searchStudent(sl);
 			break;
 		default:
 			printf("Vui long nhap tu 0..9\n");

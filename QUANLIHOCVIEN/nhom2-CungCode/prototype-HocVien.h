@@ -38,6 +38,7 @@ roomNode* createRoomNode(classroom x);
 int isEmpty(studentList sl);
 bool is_valid_date(Date date);
 bool isValidNumberclass(student newStudent, roomList room);
+bool isValidMHV(student newStudent, studentList list);
 //===============================================
 //hiển thị
 void showSNode(studentNode* p);
@@ -55,12 +56,12 @@ int deleteTail(studentList& sl, student& x);
 int deleteAfter(studentList& sl, studentNode* q, student& x);
 //===============================================
 //nhập dữ liệu bằng tay
-void input1Info(roomList room, student& x);
+void input1Info(roomList room, student& x, studentList list);
 //===============================================
 //Xu li file
 void readListStudent(char fileName[], studentList& sl);
 void read1InfoOnFile(FILE* fi, student& x);
 //tim kiem
-void searchStudent(studentList sl, roomList room);
+void searchStudent(studentList sl);
 
 #endif _quanLiHocVien_h

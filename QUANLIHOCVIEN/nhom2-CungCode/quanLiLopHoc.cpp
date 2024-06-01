@@ -3,16 +3,6 @@
 
 
 //========================================================================
-//etc
-roomNode* findNodeExistTenLopForTrue(roomList room, char tenLop[]) {
-	roomNode* currNode = room.headNode;
-	while(currNode!=NULL) {
-		if(strcmpi(currNode->value.tenLop, tenLop))
-			return currNode;	//đã tìm thấy node chứa tên lớp
-		currNode = currNode->next;
-	}
-	return NULL;
-}
 //Xuất thông tin lop hoc
 void printInfoClass(classroom x) {
 	printf("|%-14s|%-21s|%15s| %10ld|%d/%02d/%02d| %d/%02d/%02d| %d/%02d/%02d|\n", x.maLop
@@ -114,11 +104,61 @@ void showRoomNode(roomNode* p) {
 void initRoomList(roomList &room) {
 	room.headNode = room.tailNode = NULL;
 }
-//kiểm tra KHoá lịch học
+//PHỤ LỤC=================================================================
+//Chuyển đổi key sang lịch học
 const char* keyLichHoc(classroom room) {
 	if(room.lichHoc == 1)
 		return "Sang";
 	else if(room.lichHoc == 2)
 		return "Chieu";
 	return "Toi";
+}
+//Đổi từ tên lớp sang mã lớp
+const char* keyTenMon(const char* nameRoom){ //ép chó thành mèo
+	//người dùng nhập vào tên môn, mike chuyển tên môn trong lớp học thành mã lớp học 
+	//vd: Basic English -> LH005
+	//dựa vào mã lớp học ta bắt đầu tìm kiếm trên ds sinh viên
+	//bởi vì đặc tính của sinh viên chỉ Mã lớp chứ k có Tên Môn
+    if(strcmpi(nameRoom, "Basic English") == 0)
+        return "LH001";
+    else if(strcmpi(nameRoom, "Python Programming") == 0)
+        return "LH002";
+    else if(strcmpi(nameRoom, "Digital Marketing") == 0)
+        return "LH003";
+    else if(strcmpi(nameRoom, "Basic Accounting") == 0)
+        return "LH004";
+    else if(strcmpi(nameRoom, "Basic Photoshop") == 0)
+        return "LH005";
+    else if(strcmpi(nameRoom, "Basic Japanese") == 0)
+        return "LH006";
+    else if(strcmpi(nameRoom, "Interview Skills") == 0)
+        return "LH007";
+    else if(strcmpi(nameRoom, "Graphic Design") == 0)
+        return "LH008";
+    else if(strcmpi(nameRoom, "Project Management") == 0)
+        return "LH009";
+    else if(strcmpi(nameRoom, "Self-learning Guitar") == 0)
+        return "LH010";
+    else if(strcmpi(nameRoom, "Online Marketing") == 0)
+        return "LH011";
+    else if(strcmpi(nameRoom, "Basic Chinese") == 0)
+        return "LH012";
+    else if(strcmpi(nameRoom, "Tour Guiding") == 0)
+        return "LH013";
+    else if(strcmpi(nameRoom, "CV Writing Skills") == 0)
+        return "LH014";
+    else if(strcmpi(nameRoom, "Piano Basics") == 0)
+        return "LH015";
+    else if(strcmpi(nameRoom, "Basic French") == 0)
+        return "LH016";
+    else if(strcmpi(nameRoom, "Beauty Tips") == 0)
+        return "LH017";
+    else if(strcmpi(nameRoom, "Presentation Skills") == 0)
+        return "LH018";
+    else if(strcmpi(nameRoom, "Java Programming") == 0)
+        return "LH019";
+    else if(strcmpi(nameRoom, "Baking Basics") == 0)
+        return "LH020";
+    else
+        return "Unknown";
 }
