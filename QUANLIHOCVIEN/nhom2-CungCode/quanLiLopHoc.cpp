@@ -1,7 +1,27 @@
-﻿#include "prototype-HocVien.h"		//	1in2 2in1
+﻿#include "prototype-HocVien.h"		//	1in2 
 									//	đã khai báo thư viện prototype-LopHoc.h bên trong thư viện này nên không cần khai báo lại
 
-
+void printStudentHaveMaxFee(studentList listStudent, roomList listRoom) {
+	roomNode* maxFee = getMaxFee(listRoom);		//node này chỉ chứa mã lớp chứa số tiền học lớn nhất
+	studentNode* curr = listStudent.headNode;	//mike chỉ cần so sánh xem có trùng mã lớp không, trùng thì in hoi, vì đã thoả đk ròi
+	printf("DANH SACH HOC VIEN HOC LOP CO HOC PHI LON NHAT: %d\n", maxFee->value.hocPhi);
+	while(curr != NULL) {
+		if(strcmpi(curr->value.lopHoc.maLop, maxFee->value.maLop) == 0)
+			printInfo(curr->value);
+		curr = curr->next;
+	}
+} 
+//hàm trả về địa chỉ lớp học có học phí lớn nhất, việc còn lại của mike là convert mã lớp tương ứng để duyệt dssv thoả điều kiện
+roomNode* getMaxFee(roomList list) {
+    roomNode* curr = list.headNode;
+    roomNode* maxFee = curr;
+    while (curr != NULL) {
+        if (maxFee->value.hocPhi < curr->value.hocPhi) 
+            maxFee = curr;    
+        curr = curr->next;
+    }
+    return maxFee; 
+}
 //========================================================================
 //Xuất thông tin lop hoc
 void printInfoClass(classroom x) {
@@ -114,7 +134,7 @@ const char* keyLichHoc(classroom room) {
 	return "Toi";
 }
 //Đổi từ tên lớp sang mã lớp
-const char* keyTenMon(const char* nameRoom){ //ép chó thành mèo
+const char* keyTenMon(const char* nameRoom) { //ép chó thành mèo
 	//người dùng nhập vào tên môn, mike chuyển tên môn trong lớp học thành mã lớp học 
 	//vd: Basic English -> LH005
 	//dựa vào mã lớp học ta bắt đầu tìm kiếm trên ds sinh viên

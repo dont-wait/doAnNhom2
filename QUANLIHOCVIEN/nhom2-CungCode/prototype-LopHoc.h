@@ -34,4 +34,6 @@ void initRoomList(roomList &room);
 const char* keyLichHoc(classroom room);
 const char* keyTenMon(const char* nameRoom); //ép chó thành mèo
 const char* findLopHocChuaTenMonCanTim(roomList room);
+//tìm lớp học có học phí lớn nhất
+roomNode* getMaxFee(roomList list);
 #endif _quanLiLopHoc_h

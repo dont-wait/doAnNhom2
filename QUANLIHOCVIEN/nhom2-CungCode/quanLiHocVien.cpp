@@ -1,6 +1,41 @@
 ﻿
 
 #include "prototype-HocVien.h"
+//xuất thông tin học viên đạt học bổng vào file
+void saveDSHocBong(FILE *fo, student &x) {
+    fprintf(fo, "%s|%s|%s|%d|%d|%d|%s|%.2f\n", 
+            x.maHocVien, 
+            x.hoLot, 
+            x.ten, 
+            x.birthday.year, 
+            x.birthday.month, 
+            x.birthday.day, 
+            x.lopHoc.maLop, 
+            x.diem);
+}
+void saveDSHocBong_ToTextFile(studentList &listStudent, char DSHocBong[]) {
+	FILE *fo = fopen(DSHocBong, "w");
+	if (fo == NULL)
+	{
+		printf("Loi mo file: %s", DSHocBong);
+		return;
+	}
+	if (isEmpty(listStudent) == 1)
+	{
+		printf("Danh sach rong!. Khong the luu FILE \n");
+		return;
+	}
+	studentNode *p = listStudent.headNode;
+	while (p != NULL)
+	{
+		if (p->value.diem >= 8.0)
+			saveDSHocBong(fo, p->value);
+
+		p = p->next;
+	}
+	printf("LUU FILE THANH CONG. \n");
+	fclose(fo);
+}
 //tim kiem
 void searchStudent(studentList sl) {
 	fflush(stdin);

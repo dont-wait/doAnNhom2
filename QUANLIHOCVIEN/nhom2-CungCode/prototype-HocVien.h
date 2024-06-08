@@ -63,5 +63,9 @@ void readListStudent(char fileName[], studentList& sl);
 void read1InfoOnFile(FILE* fi, student& x);
 //tim kiem
 void searchStudent(studentList sl);
-
+//in thông tin học viên học lớp có tiền học lớn nhất //2 200 0000
+void printStudentHaveMaxFee(studentList listStudent, roomList listRoom);
+//in thông tin học viên đạt học bổng (điểm >= 8) vào file
+void saveDSHocBong_ToTextFile(studentList &listStudent, char DSHocBong[]);
+void saveDSHocBong(FILE *fo, student &x);
 #endif _quanLiHocVien_h

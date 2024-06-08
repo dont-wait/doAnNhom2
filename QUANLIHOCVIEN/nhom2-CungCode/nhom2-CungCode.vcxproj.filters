@@ -40,5 +40,8 @@
     <Text Include="lopHoc.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="dshocbong.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

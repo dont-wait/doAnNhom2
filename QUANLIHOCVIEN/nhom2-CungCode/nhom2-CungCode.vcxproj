@@ -85,6 +85,7 @@
     <ClInclude Include="prototype-LopHoc.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="dshocbong.txt" />
     <Text Include="hocVien.txt" />
     <Text Include="lopHoc.txt" />
   </ItemGroup>
