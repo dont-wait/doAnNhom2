@@ -1,6 +1,7 @@
-﻿#include "prototype-HocVien.h"		//	1in2 
+﻿#include "prototype-HocVien.h"		//	2in1 
 									//	đã khai báo thư viện prototype-LopHoc.h bên trong thư viện này nên không cần khai báo lại
-
+//PHẦN 5 Thuỷ
+//7. Tìm thông tin các học viên học ở lớp học có học phí cao nhất.
 void printStudentHaveMaxFee(studentList listStudent, roomList listRoom) {
 	roomNode* maxFee = getMaxFee(listRoom);		//node này chỉ chứa mã lớp chứa số tiền học lớn nhất
 	studentNode* curr = listStudent.headNode;	//mike chỉ cần so sánh xem có trùng mã lớp không, trùng thì in hoi, vì đã thoả đk ròi
@@ -11,7 +12,7 @@ void printStudentHaveMaxFee(studentList listStudent, roomList listRoom) {
 		curr = curr->next;
 	}
 } 
-//hàm trả về địa chỉ lớp học có học phí lớn nhất, việc còn lại của mike là convert mã lớp tương ứng để duyệt dssv thoả điều kiện
+//hàm trả về địa chỉ lớp học có học phí lớn nhất, việc còn lại của mike là so sánh mã lớp 2 bên nx là okie
 roomNode* getMaxFee(roomList list) {
     roomNode* curr = list.headNode;
     roomNode* maxFee = curr;
@@ -22,6 +23,8 @@ roomNode* getMaxFee(roomList list) {
     }
     return maxFee; 
 }
+//======================================================================== PHẦN 5: Thuỷ
+
 //========================================================================
 //Xuất thông tin lop hoc
 void printInfoClass(classroom x) {
@@ -87,7 +90,7 @@ void read1RoomOnFile(FILE* fi, classroom& x) {
 	
 }
 //========================================================================
-//thêm
+//thêm node
 int insertTail(roomList &room, roomNode* p) {
 	if (!p)	//p==NULL
 		return 0;

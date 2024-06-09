@@ -5,6 +5,8 @@ struct Date {
 	int month;
 	int day;
 };
+//PHẦN 1: Phước
+//1. Xây dựng danh sách liên kết đơn phù hợp để tổ chức lưu trữ lớp học và học viên tại trung tâm.
 struct classroom {
 	char maLop[11];
 	char tenLop[30];

@@ -1,0 +1,15 @@
+﻿Build started 6/9/2024 6:42:19 PM.
+     1>Project "E:\doAnNhom2\QUANLIHOCVIEN\nhom2-CungCode\nhom2-CungCode.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         E:\App\vs2012Ultimate\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt quanLiHocVien.cpp
+         quanLiHocVien.cpp
+       Link:
+         E:\App\vs2012Ultimate\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\doAnNhom2\QUANLIHOCVIEN\Debug\nhom2-CungCode.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\doAnNhom2\QUANLIHOCVIEN\Debug\nhom2-CungCode.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\doAnNhom2\QUANLIHOCVIEN\Debug\nhom2-CungCode.lib" /MACHINE:X86 Debug\quanLiHocVien.obj
+         Debug\quanLiHocVien_main.obj
+         Debug\quanLiLopHoc.obj
+         nhom2-CungCode.vcxproj -> E:\doAnNhom2\QUANLIHOCVIEN\Debug\nhom2-CungCode.exe
+     1>Done Building Project "E:\doAnNhom2\QUANLIHOCVIEN\nhom2-CungCode\nhom2-CungCode.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.51

@@ -46,10 +46,22 @@ void process() {
 			case 5:
 				printf("dag cap nhat\n");
 				break;
+			case 6:
+				 if (checkListLoaded()) {
+					inHocVienDiemCaoNhat(sl);
+                }
+				break;
 			case 7:
 				if (checkListLoaded()) {
 				printStudentHaveMaxFee(sl, room);
 				}
+			case 8:
+				printf("dag cap nhat\n");
+				break;
+			case 9:
+				//printf("dag cap nhat\n");
+				inHocVienChuaDat(sl);
+				break;
 			case 10:
 				if (checkListLoaded()) {
 				saveDSHocBong_ToTextFile(sl, "dshocbong.txt");

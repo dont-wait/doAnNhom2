@@ -11,6 +11,8 @@
 #include <iomanip>
 using namespace std;
 
+//PHẦN 1: Phước
+//1. Xây dựng danh sách liên kết đơn phù hợp để tổ chức lưu trữ lớp học và học viên tại trung tâm.
 struct student {
 	char maHocVien[16];
 	char hoLot[21];
@@ -68,4 +70,10 @@ void printStudentHaveMaxFee(studentList listStudent, roomList listRoom);
 //in thông tin học viên đạt học bổng (điểm >= 8) vào file
 void saveDSHocBong_ToTextFile(studentList &listStudent, char DSHocBong[]);
 void saveDSHocBong(FILE *fo, student &x);
+//tìm học sinh có điểm cao nhất
+float timDiemCaoNhat(studentList list);
+void inHocVienDiemCaoNhat(studentList list);
+//sắp xếp theo tên
+void inHocVienChuaDat(studentList list);
+void sapXepHocVien(studentList &list);
 #endif _quanLiHocVien_h

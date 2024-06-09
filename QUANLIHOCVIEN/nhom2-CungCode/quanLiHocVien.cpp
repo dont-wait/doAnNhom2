@@ -1,7 +1,97 @@
 ﻿
 
 #include "prototype-HocVien.h"
-//xuất thông tin học viên đạt học bổng vào file
+//PHẦN 4:
+//6. Tìm thông tin các học viên có điểm cao nhất.
+//9. In ra thông tin của các học viên có điểm chưa đạt (<5), sắp xếp kết quả giảm dần theo tên học viên.
+
+//9. sap xep hoc vien theo ten giam dan
+void sapXepHocVien(studentList &list) {
+    if (list.headNode == NULL || list.headNode->next == NULL) {
+        return; // danh sách rỗng hoặc chỉ có một học viên không cần sắp xếp
+    }
+
+    studentNode *sorted = NULL; // danh sách mới đã được sắp xếp
+    studentNode *current = list.headNode; // bắt đầu từ phần tử đầu tiên của danh sách chưa sắp xếp
+
+    while (current != NULL) {
+        studentNode *next = current->next; // lưu trữ phần tử tiếp theo
+        // chèn current vào danh sách đã sắp xếp
+        if (sorted == NULL || strcmp(sorted->value.ten, current->value.ten) < 0) {
+            // chèn vào đầu danh sách đã sắp xếp
+            current->next = sorted;
+            sorted = current;
+        } else {
+            // tìm vị trí chèn
+            studentNode *temp = sorted;
+            while (temp->next != NULL && strcmp(temp->next->value.ten, current->value.ten) > 0) {
+                temp = temp->next;
+            }
+            // chèn vào sau temp
+            current->next = temp->next;
+            temp->next = current;
+        }
+        current = next; // tiếp tục với phần tử tiếp theo
+    }
+    list.headNode = sorted; // cập nhật head để trỏ đến danh sách mới đã sắp xếp
+}
+void inHocVienChuaDat(studentList list) {
+    studentNode *current = list.headNode;
+    int count = 0;
+    while (current != NULL) {
+        if (current->value.diem < 5) {
+            count++;
+        }
+        current = current->next;
+    }
+    if (count > 0) {
+        sapXepHocVien(list);
+        current = list.headNode;
+        while (current != NULL) {
+            if (current->value.diem < 5) {
+                showSNode(current);
+            }
+            current = current->next;
+        }
+    } else {
+        printf("Khong co hoc vien nao co diem chua dat.\n");
+    }
+}
+//6. Tìm thông tin các học viên có điểm cao nhất.
+//6.1 tìm node chứa điểm cao nhất
+float timDiemCaoNhat(studentList list) {
+    if(isEmpty(list)) return NULL;
+	studentNode *max = list.headNode;
+    studentNode *current = list.headNode;
+    while (current != NULL) {
+        if (current->value.diem > max->value.diem) {
+            max = current;
+        }
+        current = current->next;
+    }
+    return max->value.diem;
+}
+// Hàm in ra tất cả các học viên có điểm cao nhất
+void inHocVienDiemCaoNhat(studentList list) {
+    float diemCaoNhat = timDiemCaoNhat(list); // Tìm điểm cao nhất
+    studentNode* current = list.headNode;
+    printf("DANH SACH SINH VIEN CO DIEM CAO NHAT: %.2f\n", diemCaoNhat);
+    while (current != NULL) {
+        if (current->value.diem == diemCaoNhat) {
+			showSNode(current);
+        }
+        current = current->next;
+    }
+}
+
+//==================================================Phần 4: Phát
+
+//PHẦN 5: Thuỷ
+//7. Tìm thông tin các học viên học ở lớp học có học phí cao nhất.
+//10. In ra màn hình danh sách các học viên đạt học bổng (điểm>=8) và lưu danh sách học viên này vào file có tên là:
+//dshocbong.txt
+
+//10. xuất thông tin học viên đạt học bổng vào file
 void saveDSHocBong(FILE *fo, student &x) {
     fprintf(fo, "%s|%s|%s|%d|%d|%d|%s|%.2f\n", 
             x.maHocVien, 
@@ -36,7 +126,14 @@ void saveDSHocBong_ToTextFile(studentList &listStudent, char DSHocBong[]) {
 	printf("LUU FILE THANH CONG. \n");
 	fclose(fo);
 }
-//tim kiem
+//============================================ PHẦN 5: Thuỷ
+
+//PHẦN 2: Sang
+//3. Thêm một học viên vào danh sách học viên, thông tin học viên được nhập từ bàn phím.
+//4. Cho phép tìm kiếm học viên theo các tiêu chí tìm kiếm: tên lớp hoặc mã học viên hoặc năm sinh. Cho phép người
+//dùng lựa chọn tiêu chí tìm kiếm.
+
+//4. tim kiem
 void searchStudent(studentList sl) {
 	fflush(stdin);
 	int choice;
@@ -122,33 +219,7 @@ void searchStudent(studentList sl) {
 	}
 }while(choice != 0);
 }
-//=================================================
-//Xử lí file
-void readListStudent(char fileName[], studentList& sl) {
-	int n;
-	FILE* fi = fopen(fileName, "r");
-	if (fi == NULL) {
-		printf("Khong the mo file!\n");
-		exit(1);
-	}
-	fscanf(fi, "%d\n", &n);
-	initSList(sl);
-	for (int i = 0; i < n; i++)
-	{
-		student x;
-		read1InfoOnFile(fi, x);
-
-		studentNode* p = createSNode(x);
-		insertTail(sl, p);
-	}
-	fclose(fi);
-	printf("Doc file %s thanh cong vui long nhan 2 de in\n", fileName);
-}
-
-void read1InfoOnFile(FILE* fi, student& x) {
-	fscanf(fi, "%[^|]|%[^|]|%[^|]|%d%d%d|%[^|]|%f\n", &x.maHocVien, &x.hoLot, &x.ten, &x.birthday.year, &x.birthday.month, &x.birthday.day, &x.lopHoc.maLop, &x.diem);
-}
-//==============================
+//3. Thêm học viên
 void input1Info(roomList room, student& x, studentList list) {
 	fflush(stdin);
 	do {
@@ -185,6 +256,38 @@ void input1Info(roomList room, student& x, studentList list) {
 	printf("Nhap Diem: ");
 	scanf("%f", &x.diem);
 }
+//================================================= PHẦN 2: Sang
+
+//PHẦN 1: Phước
+//2. Thông tin lớp học được lưu trữ trong file lophoc.txt, thông tin học viên được lưu trữ trong file hocvien.txt; hãy đọc
+//dữ liệu từ hai file vào chương trình và phải đảm bảo các lớp học học viên đăng ký phải là các lớp học đã có trong
+//danh sách lớp học.
+//Xử lí file
+void readListStudent(char fileName[], studentList& sl) {
+	int n;
+	FILE* fi = fopen(fileName, "r");
+	if (fi == NULL) {
+		printf("Khong the mo file!\n");
+		exit(1);
+	}
+	fscanf(fi, "%d\n", &n);
+	initSList(sl);
+	for (int i = 0; i < n; i++)
+	{
+		student x;
+		read1InfoOnFile(fi, x);
+
+		studentNode* p = createSNode(x);
+		insertTail(sl, p);
+	}
+	fclose(fi);
+	printf("Doc file %s thanh cong vui long nhan 2 de in\n", fileName);
+}
+
+void read1InfoOnFile(FILE* fi, student& x) {
+	fscanf(fi, "%[^|]|%[^|]|%[^|]|%d%d%d|%[^|]|%f\n", &x.maHocVien, &x.hoLot, &x.ten, &x.birthday.year, &x.birthday.month, &x.birthday.day, &x.lopHoc.maLop, &x.diem);
+}
+//============================== PHẦN 1 2.ĐỌC FILE Phước
 //==============================
 //Xoá studentNode 3 cách
 int deleteAfter(studentList& sl, studentNode* q, student& x) {
@@ -268,7 +371,7 @@ void showSList(studentList sl) {
 		return;
 	}
 	printf("Noi dung danh sach lien ket:\n");
-	printf("|%-s|%-14s|%-21s|%16s| %s|%-11s|%s|\n", "STT", "Ma hoc vien", "Ho lot", "Ten", "yyyy/mm/dd", "Ma lop hoc", "Diem");
+	printf("|%-s|%-14s|%-21s|%16s| %s|%-11s| %s|\n", "STT", "Ma hoc vien", "Ho lot", "Ten", "yyyy/mm/dd", "Ma lop hoc", "Diem");
 	printf("---------------------------------------------------------------------------------------\n");
 	studentNode* p = sl.headNode;
 	int i = 0;
@@ -285,7 +388,7 @@ void showSNode(studentNode* p) {
 	printInfo(p->value);
 }
 void printInfo(student x) {
-	printf("|%-14s|%-21s|%16s| %d/%02d/%02d|%-11s|%4.2f|\n", x.maHocVien
+	printf("|%-14s|%-21s|%16s| %d/%02d/%02d|%-11s| %4.2f|\n", x.maHocVien
 		, x.hoLot
 		, x.ten
 		, x.birthday.year
