@@ -1,7 +1,45 @@
 ﻿
 
 #include "prototype-HocVien.h"
-//PHẦN 4:
+
+//PHẦN 3:	Hải Minh
+//5. In ra màn hình danh sách học viên theo tên lớp (tất cả các lớp).
+//8. Sắp xếp danh sách học viên theo mã lớp, các học viên học cùng một lớp sắp xếp điểm giảm dần.
+
+//5. Mỗi lần tới 1 node lớp học, ta kiểm tra 1 lượt dssv xem có ai học trong lớp đó không thì in ra
+void inThongTinHocVienTheoTenLop(studentList list, roomList rooms) {
+	printf("DANH SACH SINH VIEN THEO TEN LOP\n");
+	for (roomNode* i = rooms.headNode; i != NULL; i = i->next) {
+		printf("DANH SACH SINH VIEN THEO LOP: %s\n", i->value.tenLop);
+		for (studentNode* j = list.headNode; j != NULL; j = j->next)
+			if(strcmpi(j->value.lopHoc.maLop, keyTenMon(i->value.tenLop)) == 0)
+				showSNode(j);
+	}
+}
+//8. Sắp xếp danh sách học viên theo mã lớp, các học viên học cùng một lớp sắp xếp điểm giảm dần.
+//8.1 Trả về danh sách học viên đã sắp xếp theo mã lớp
+void sapXepTheoMaLop(studentList &list) {
+	for (studentNode* i = list.headNode; i != NULL; i = i->next)
+		for (studentNode* j = i->next; j != NULL; j = j->next)	
+			//số thứ tự tại i mà lớn hơn lớp học tại j thì đổi, mike đang sắp theo kiểu tăng dần 
+			//TRUE: LH01 -> LH02 -> LH03
+			//FALSE: LH02 -> LH01 -> LH03
+			if(strcmp(i->value.lopHoc.maLop, j->value.lopHoc.maLop) > 0) 
+				swap(i, j);
+}
+//8.2
+//sắp xếp điểm giảm dần
+void sapXepTheoMaLopVaDiem(studentList &list) {
+	sapXepTheoMaLop(list);
+	for (studentNode* i = list.headNode; i != NULL; i = i->next)
+		for (studentNode* j = i->next; j != NULL; j = j->next)
+			if((i->value.diem < j->value.diem) && strcmp(i->value.lopHoc.maLop, j->value.lopHoc.maLop) == 0)
+				swap(i, j);			
+	printf("DANH SACH DA DUOC SAP XEP, AN 2 DE XEM THONG TIN DA DUOC CAP NHAT\n");
+}
+//=============================================== Hải Minh
+
+//PHẦN 4: Phát
 //6. Tìm thông tin các học viên có điểm cao nhất.
 //9. In ra thông tin của các học viên có điểm chưa đạt (<5), sắp xếp kết quả giảm dần theo tên học viên.
 
@@ -219,7 +257,7 @@ void searchStudent(studentList sl) {
 	}
 }while(choice != 0);
 }
-//3. Thêm học viên
+//3. Thêm học viên - Sang
 void input1Info(roomList room, student& x, studentList list) {
 	fflush(stdin);
 	do {
@@ -255,7 +293,31 @@ void input1Info(roomList room, student& x, studentList list) {
 	fflush(stdin);
 	printf("Nhap Diem: ");
 	scanf("%f", &x.diem);
+	
+	getAnwser(list, x);
 }
+//Mỗi lần thêm học viên mới, ta phải hỏi xem, có muốn update cái file.txt lun khum
+//vì có người dùng chỉ vào để xem tính năng, có người dùng(cô bên phòng học vụ) lại muốn dùng app để
+//																				thêm sinh viên mới nhập học, mới đăng kí vào lớp
+void writeInfOnFile(char fileName[], student x) {
+	FILE* fi = fopen(fileName, "a");
+	if (fi == NULL) {
+		printf("Khong the mo file!\n");
+		exit(1);
+	}
+    fprintf(fi, "%s|%s|%s|%d %d %d|%s|%.1f\n", x.maHocVien
+		, x.hoLot
+		, x.ten
+		, x.birthday.year
+		, x.birthday.month
+		, x.birthday.day
+		, x.lopHoc.maLop
+		, x.diem
+		);
+	fprintf(fi, "\n");
+    fclose(fi);
+}
+
 //================================================= PHẦN 2: Sang
 
 //PHẦN 1: Phước
@@ -464,4 +526,34 @@ bool isValidMHV(student newStudent, studentList list) {
 		currNode = currNode->next;
 	}
 	return true;	//OKIE
+}
+void swap(studentNode* &a, studentNode* &b) {
+	student temp = a->value;
+    a->value = b->value;
+    b->value = temp;
+}
+void printOptionDoYouWantToSave() {
+	
+	printf("Ban co muon cap nhat hocVien.txt lun khum\n");
+	printf("1.Yes\n");
+	printf("2.No\n");
+}
+void getAnwser(studentList &sl, student x) {
+	int choice;
+	do {
+		printOptionDoYouWantToSave();
+		printf("Input: ");
+		scanf("%d", &choice);
+		switch (choice)
+		{
+		case 1:
+			writeInfOnFile("hocVien.txt", x);
+			break;
+		case 2:
+			break;
+		default:
+			printf("Gia tri khong hop le!\n"); 
+			break;
+		}
+	}while(choice != 1 && choice != 2);
 }

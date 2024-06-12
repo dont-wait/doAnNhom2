@@ -34,8 +34,12 @@ void process() {
             case 3:
                 if (checkListLoaded()) {
                     input1Info(room, x, sl);
-                    p = createSNode(x);
+					p = createSNode(x);
                     insertTail(sl, p);
+					if(p!=NULL)  
+						printf("Them thanh cong!\n");
+					else
+						printf("Them ko thanh cong!\n");
                 }
                 break;
             case 4:
@@ -44,7 +48,9 @@ void process() {
                 }
                 break;
 			case 5:
-				printf("dag cap nhat\n");
+				if(checkListLoaded()) {
+					inThongTinHocVienTheoTenLop(sl, room);
+				}
 				break;
 			case 6:
 				 if (checkListLoaded()) {
@@ -56,11 +62,14 @@ void process() {
 				printStudentHaveMaxFee(sl, room);
 				}
 			case 8:
-				printf("dag cap nhat\n");
+				if (checkListLoaded()) {
+				sapXepTheoMaLopVaDiem(sl);
+				}
 				break;
 			case 9:
-				//printf("dag cap nhat\n");
+				if (checkListLoaded()) {
 				inHocVienChuaDat(sl);
+				}
 				break;
 			case 10:
 				if (checkListLoaded()) {

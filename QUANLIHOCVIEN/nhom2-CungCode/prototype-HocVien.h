@@ -63,6 +63,8 @@ void input1Info(roomList room, student& x, studentList list);
 //Xu li file
 void readListStudent(char fileName[], studentList& sl);
 void read1InfoOnFile(FILE* fi, student& x);
+void writeInfOnFile(char fileName[], student x);//write FILE	đưa dữ liệu từ RAM vào FILE.txt lun
+void getAnwser(studentList &sl, student x);
 //tim kiem
 void searchStudent(studentList sl);
 //in thông tin học viên học lớp có tiền học lớn nhất //2 200 0000
@@ -75,5 +77,11 @@ float timDiemCaoNhat(studentList list);
 void inHocVienDiemCaoNhat(studentList list);
 //sắp xếp theo tên
 void inHocVienChuaDat(studentList list);
-void sapXepHocVien(studentList &list);
+void sapXepHocVien(studentList &list);	//theo alphabet
+//in thông tin theo tên lớp
+void inThongTinHocVienTheoTenLop(studentList list, roomList rooms);
+//sắp xếp danh sách học viên
+void sapXepTheoMaLopVaDiem(studentList &list);
+void sapXepTheoMaLop(studentList &list);
+void swap(studentNode* &a, studentNode* &b);
 #endif _quanLiHocVien_h
