@@ -43,7 +43,7 @@ void showRoomList(roomList sl) {
 		printf("Linked roomList is Empty\n");
 		return;
 	}
-	printf("Noi dung danh sach lien ket:\n");
+	printf("DANH SACH LOP HOC:\n");
 	printf("|%-s|%-14s|%-21s|%15s| %s|%-10s|%-10s|%-10s|\n", "STT", "Ma lop hoc", "Ten mon", "Lich hoc", "   Hoc phi", "yyyy/mm/dd", "yyyy/mm/dd ", "yyyy/mm/dd ");
 	printf("---------------------------------------------------------------------------------------\n");
 	roomNode* p = sl.headNode;

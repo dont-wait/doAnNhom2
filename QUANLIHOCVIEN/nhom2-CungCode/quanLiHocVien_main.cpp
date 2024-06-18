@@ -61,6 +61,7 @@ void process() {
 				if (checkListLoaded()) {
 				printStudentHaveMaxFee(sl, room);
 				}
+				break;
 			case 8:
 				if (checkListLoaded()) {
 				sapXepTheoMaLopVaDiem(sl);
@@ -103,7 +104,7 @@ void printMenu() {
     printf("|   Diem giam dan                                               |\n");
     printf("| 9.Thong tin hoc vien co diem chua dat (<5), sap xep giam dan  |\n");
     printf("|   theo ten                                                    |\n");
-    printf("| 10.In danh sach sinh vien dat HOC BONG (Diem >=8)             |\n");
+    printf("| 10.In danh sach hoc vien dat HOC BONG (Diem >=8)              |\n");
     printf("=================================================================\n");
 }
 //===========================================================================

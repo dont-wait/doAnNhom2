@@ -171,7 +171,7 @@ void saveDSHocBong_ToTextFile(studentList &listStudent, char DSHocBong[]) {
 //4. Cho phép tìm kiếm học viên theo các tiêu chí tìm kiếm: tên lớp hoặc mã học viên hoặc năm sinh. Cho phép người
 //dùng lựa chọn tiêu chí tìm kiếm.
 
-//4. tim kiem
+//4. tim kiem Sang
 void searchStudent(studentList sl) {
 	fflush(stdin);
 	int choice;
@@ -226,7 +226,7 @@ void searchStudent(studentList sl) {
 			}
 			if(!found) printf("Khong tim thay sinh vien co ma: %s\n", maHocVien);
 		};	
-		printf("Thong tin sinh vien co Ma hoc vien: %s\n", strupr(hocVienCoMaHocVien));
+		printf("THONG TIN SINH VIEN CO MA HOC VIEN: %s\n", strupr(hocVienCoMaHocVien));
 		searchByMaHocVien(sl, hocVienCoMaHocVien);
 		break;
 	}
@@ -314,7 +314,7 @@ void writeInfOnFile(char fileName[], student x) {
 		, x.lopHoc.maLop
 		, x.diem
 		);
-	fprintf(fi, "\n");
+	
     fclose(fi);
 }
 
@@ -347,7 +347,12 @@ void readListStudent(char fileName[], studentList& sl) {
 }
 
 void read1InfoOnFile(FILE* fi, student& x) {
-	fscanf(fi, "%[^|]|%[^|]|%[^|]|%d%d%d|%[^|]|%f\n", &x.maHocVien, &x.hoLot, &x.ten, &x.birthday.year, &x.birthday.month, &x.birthday.day, &x.lopHoc.maLop, &x.diem);
+	fscanf(fi, "%[^|]|%[^|]|%[^|]|%d%d%d|%[^|]|%f\n", &x.maHocVien
+		, &x.hoLot
+		, &x.ten
+		, &x.birthday.year
+		, &x.birthday.month, &x.birthday.day, &x.lopHoc.maLop
+		, &x.diem);
 }
 //============================== PHẦN 1 2.ĐỌC FILE Phước
 //==============================
@@ -432,7 +437,7 @@ void showSList(studentList sl) {
 		printf("Linked studentList is Empty\n");
 		return;
 	}
-	printf("Noi dung danh sach lien ket:\n");
+	printf("DANH SACH HOC VIEN:\n");
 	printf("|%-s|%-14s|%-21s|%16s| %s|%-11s| %s|\n", "STT", "Ma hoc vien", "Ho lot", "Ten", "yyyy/mm/dd", "Ma lop hoc", "Diem");
 	printf("---------------------------------------------------------------------------------------\n");
 	studentNode* p = sl.headNode;
