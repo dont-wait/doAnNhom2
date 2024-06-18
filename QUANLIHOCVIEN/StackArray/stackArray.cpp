@@ -1,4 +1,4 @@
-//#include <stdio.h>
+﻿//#include <stdio.h>
 //#include <conio.h>
 //#define MAX_ARRAY 100
 //struct stack {
@@ -13,33 +13,118 @@
 //int getTop(stack &st);
 //void input(stack &st, int n);
 //void output(stack st);
+//void printMenu();
+//int search(stack s, int target);	//trả về vị trí tìm thấy 
+//stack sortStackAndReturnNew(stack &s) {
+//    stack sortedStack;
+//    init(sortedStack);
+//
+//    // Sao chép các phần tử từ stack ban đầu vào mảng tạm thời để sắp xếp
+//    int temp[MAX_ARRAY];
+//    for (int i = 0; i <= s.top; i++) 
+//        temp[i] = s.a[i];
+//    
+//
+//    // Sắp xếp mảng tạm thời
+//    for (int i = 0; i <= s.top; i++) 
+//        for (int j = i + 1; j <= s.top; j++) 
+//            if (temp[i] > temp[j]) {
+//                int t = temp[i];
+//                temp[i] = temp[j];
+//                temp[j] = t;
+//            }
+//    // Đẩy các phần tử đã sắp xếp vào stack mới
+//    for (int i = s.top; i >= 0; i--) 
+//        push(sortedStack, temp[i]);
+//    return sortedStack;
+//}
 //int main() {
 //	//tao mot stack s
 //    stack st;
 //    //nhap n phan tu can them vao stac
 //    int n;
 //	int x;
-//    printf("Nhap n: ");
-//    scanf("%d",&n);
-//    
-//	//khoi tao stack s
-//    init(st);
-//    //goi ham nhap n phan tu vao stack
-//    
-//	input(st,n);
-//    //goi ham xuat cac phan tu o tron stack
-//    printf("Stack vua nhap la: \n");
-//    output(st);
-//    
-//	//lay phan tu top cua stack ra nhung khong xoa
-//    printf("Top cua stack voi ham top %d\n", getTop(st));
-//    
-//	//lay phan tu top cua stack ra va xoa
-//	pop(st, x);
-//    printf("Stack sau khi pop la\n");
-//    output(st);
+//	int choice;
+//	int target, result;
+//	do{
+//		printMenu();
+//		printf("Nhap lua chon: ");
+//		scanf("%d", &choice);
+//		switch (choice)
+//		{
+//		case 1:
+//			//khoi tao stack s
+//			init(st);
+//			printf("Kkhoi tao stack mang thanh cong!");
+//			break;
+//		case 2:
+//			printf("Nhap n: ");
+//			scanf("%d",&n);
+//			input(st,n);
+//			break;
+//		case 3:
+//			//lay phan tu top cua stack ra va xoa
+//			pop(st, x);
+//			printf("Stack sau khi pop la\n");
+//			output(st);
+//			break;
+//		case 4:
+//			printf("Stack vua nhap la: \n");
+//			output(st);
+//			break;
+//		case 5:
+//			printf("Nhap vao gia tri muon tim: ");
+//			scanf("%d", &target);
+//			result = search(st, target);
+//			if(result == -1)
+//				printf("Ko ton tai %d trong Stack!\n", target);
+//			else	
+//				printf("Gia tri %d nam tai vi tri %d trong stack\n", target, result); 
+//			break;
+//		case 6:
+//			st = sortStackAndReturnNew(st);
+//			printf("sap xep thanh cong\n");
+//			break;
+//		case 0:
+//			printf("Have a gud time <3\n");
+//			break;
+//			
+//		default:
+//			printf("Vui long nhap tu 0.6");
+//		break;
+//		}
 //
+//	}while(choice != 0);
 //	getch();
+//}
+//void printMenu() {
+//	printf("\n=================================\n");
+//	printf("1.Khoi tao stack dac            =\n");
+//	printf("2.Them phan tu                  =\n");
+//	printf("3.Xoa 1 phan tu                 =\n");
+//	printf("4.Duyet Stack                   =\n");
+//	printf("5.Tim kiem phan tu              =\n");
+//	printf("6.Sap xep cac phan tu           =\n");
+//	printf("=================================\n");
+//}
+////void sortStack(stack &s) {
+////    if (isEmpty(s)) {
+////        return;
+////    }
+////	//sắp xếp tăng dần
+////    for (int i = 0; i < s.top; i++) 
+////        for (int j = i + 1; j < s.top - 1; j++) 
+////            if (s.a[i] > s.a[j]) {
+////               int tmp = s.a[i];
+////			   s.a[i] = s.a[j];
+////			   s.a[j] = tmp;
+////            }
+////}
+//int search(stack s, int target) {
+//    for (int i = 0; i <= s.top; i++)
+//        if (s.a[i] == target) 
+//            return i;
+//    return -1;	//ko tồn tại trong mảng
 //}
 //void output(stack st) {
 //	if(isEmpty(st)) {
@@ -49,7 +134,7 @@
 //	//duyet tu phan tu top ve phan tu cuoi stack
 //    for(int i = st.top; i > -1; i--){
 //        //hien thi ra ket qua
-//        printf("     | %d |\n",st.a[i]);
+//		printf("     | %5d |\n", st.a[i]);
 //    }
 //}
 //void input(stack &st, int n) {
@@ -62,6 +147,7 @@
 //        //thuc hien push vao stack
 //        push(st,x);
 //    }
+//	printf("Them thanh cong!\n");
 //}
 //int getTop(stack &st) {
 //	int x;
@@ -93,6 +179,6 @@
 //	}
 //	return 0; // fail 
 //}
-//int isFull(stack st) {return st.top == MAX_ARRAY - 1;	}// 0..99 -> 100 
+//int isFull(stack st) {return st.top == MAX_ARRAY - 1;	}// 0..99 . 100 
 //int isEmpty(stack st) {return st.top == -1;}
 //void init(stack &st) {st.top = -1;}
